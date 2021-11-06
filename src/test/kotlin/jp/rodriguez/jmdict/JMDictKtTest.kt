@@ -1,5 +1,8 @@
 package jp.rodriguez.jmdict
 
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.io.File
@@ -98,7 +101,19 @@ internal class JMDictKtTest {
             </JMdict>
             """.trimIndent()
 
-        val jmDict = someEntry.toJMDict()
-        assertEquals(2, jmDict.entries.count())
+        val jmDictFromXml = someEntry.toJMDict()
+        assertEquals(2, jmDictFromXml.entries.count())
+        assertEquals("悪どい", jmDictFromXml.entries[0].kanjiElements[0].kanji[0])
+        assertEquals("王女があくどい化粧をしていた。", jmDictFromXml.entries[0].senses[0].examples?.get(0)?.sentences?.first()?.text)
+
+        val json = Json {
+            encodeDefaults = false
+        }
+
+        val jmDictJson = json.encodeToString(jmDictFromXml)
+        println(jmDictJson)
+
+        val jmDictFromJson = Json.decodeFromString<JMDict>(jmDictJson)
+        assertEquals(jmDictFromXml, jmDictFromJson)
     }
 }

@@ -5,7 +5,7 @@ plugins {
     kotlin("plugin.serialization") version "1.5.31"
 }
 
-group = "grups.upc.edu"
+group = "jp.rodriguez.jmdict"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -15,6 +15,7 @@ repositories {
 dependencies {
     implementation("io.github.pdvrieze.xmlutil:core:0.84.0-RC1")
     implementation("io.github.pdvrieze.xmlutil:serialization:0.84.0-RC1")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
 
     testImplementation("org.jetbrains.kotlin:kotlin-reflect:1.5.31")
     testImplementation("org.jetbrains.kotlin:kotlin-test:1.5.31")
